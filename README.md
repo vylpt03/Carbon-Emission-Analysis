@@ -28,45 +28,26 @@ limit 5;</pre>
 #### 2. Table 'industry_groups'  
 id: Unique identifier for each industry group.  
 industry_group: The name of the industry group, categorizing businesses within similar sectors based on their products or services offered. 
-<pre>Select * from industry_groups;</pre>
+<pre>SELECT* FROM industry_groups
+LIMIT 5;</pre>
 | id | industry_group                                                         | 
 | -: | ---------------------------------------------------------------------: | 
 | 1  | "Consumer Durables, Household and Personal Products"                   | 
 | 2  | "Food, Beverage & Tobacco"                                             | 
 | 3  | "Forest and Paper Products - Forestry, Timber, Pulp and Paper, Rubber" | 
 | 4  | "Mining - Iron, Aluminum, Other Metals"                                | 
-| 5  | "Pharmaceuticals, Biotechnology & Life Sciences"                       | 
-| 6  | "Textiles, Apparel, Footwear and Luxury Goods"                         | 
-| 7  | Automobiles & Components                                               | 
-| 8  | Capital Goods                                                          | 
-| 9  | Chemicals                                                              | 
-| 10 | Commercial & Professional Services                                     | 
-| 11 | Consumer Durables & Apparel                                            | 
-| 12 | Containers & Packaging                                                 | 
-| 13 | Electrical Equipment and Machinery                                     | 
-| 14 | Energy                                                                 | 
-| 15 | Food & Beverage Processing                                             | 
-| 16 | Food & Staples Retailing                                               | 
-| 17 | Gas Utilities                                                          | 
-| 18 | Household & Personal Products                                          | 
-| 19 | Materials                                                              | 
-| 20 | Media                                                                  | 
-| 21 | Retailing                                                              | 
-| 22 | Semiconductors & Semiconductor Equipment                               | 
-| 23 | Semiconductors & Semiconductors Equipment                              | 
-| 24 | Software & Services                                                    | 
-| 25 | Technology Hardware & Equipment                                        | 
-| 26 | Telecommunication Services                                             | 
-| 27 | Tires                                                                  | 
-| 28 | Tobacco                                                                | 
-| 29 | Trading Companies & Distributors and Commercial Services & Supplies    | 
-| 30 | Utilities                                                              |   
+| 5  | "Pharmaceuticals, Biotechnology & Life Sciences"                       |   
+
+<pre>SELECT COUNT(DISTINCT id) FROM industry_groups;</pre>  
+| COUNT(DISTINCT id) | 
+| -----------------: | 
+| 30                 | 
 > There are 30 industry groups.
 
 #### 3. Table 'companies'  
 id: Unique identifier for each company.  
 company_name: The name of the company, identifying the specific organization within the dataset.  
-<pre>Select * from companies
+<pre>SELECT * FROM companies
 limit 5;</pre>
 | id | company_name                  | 
 | -: | ----------------------------: | 
@@ -75,18 +56,18 @@ limit 5;</pre>
 | 3  | "Cisco Systems, Inc."         | 
 | 4  | "CNX Coal Resources, LP"      | 
 | 5  | "Coca-Cola Enterprises, Inc." |   
-<pre>Select count(*) from companies;
-</pre>  
-| count(*) | 
-| -------: | 
-| 145      |  
+
+<pre>SELECT COUNT(DISTINCT id) AS 'Num of companies' FROM companies;</pre>  
+| Num of companies | 
+| ---------------: | 
+| 145              | 
 > There are 145 companies.
 
 #### 4. Table 'countries'
 id: Unique identifier for each country.  
 country_name: The name of the country.  
-<pre>Select * from countries
-limit 5;
+<pre>SELECT * FROM countries
+LIMIT 5;
 </pre>  
 | id | country_name | 
 | -: | -----------: | 
@@ -96,21 +77,33 @@ limit 5;
 | 4  | Canada       | 
 | 5  | Chile        |   
 
-<pre>Select count(*) from countries;</pre>  
+<pre>SELECT COUNT(DISTINCT id) AS 'Num of countries' FROM countries;;</pre>  
 
-| count(*) | 
-| -------: | 
-| 28       | 
+| Num of countries | 
+| ---------------: | 
+| 28               | 
 
 # Questions to research  
 #### 1. Which products contribute the most to carbon emissions?  
-<pre>Select product_name, carbon_footprint_pcf from product_emissions
-group by carbon_footprint_pcf
-order by carbon_footprint_pcf  desc
-limit 1;</pre>  
-| product_name                 | carbon_footprint_pcf | 
-| ---------------------------: | -------------------: | 
-| Wind Turbine G128 5 Megawats | 3718044              | 
+<pre>SELECT product_name, 
+     ROUND(AVG(carbon_footprint_pcf), 2) AS 'Average PCF'
+FROM product_emissions
+GROUP BY carbon_footprint_pcf
+ORDER BY carbon_footprint_pcf  DESC
+LIMIT 10;</pre>  
+| product_name                                                                                                                       | Average PCF | 
+| ---------------------------------------------------------------------------------------------------------------------------------: | ----------: | 
+| Wind Turbine G128 5 Megawats                                                                                                       | 3718044.00  | 
+| Wind Turbine G132 5 Megawats                                                                                                       | 3276187.00  | 
+| Wind Turbine G114 2 Megawats                                                                                                       | 1532608.00  | 
+| Wind Turbine G90 2 Megawats                                                                                                        | 1251625.00  | 
+| Land Cruiser Prado. FJ Cruiser. Dyna trucks. Toyoace.IMV def unit.                                                                 | 191687.00   | 
+| Retaining wall structure with a main wall (sheet pile): 136 tonnes of steel sheet piles and 4 tonnes of tierods per 100 meter wall | 167000.00   | 
+| TCDE                                                                                                                               | 99075.00    | 
+| Mercedes-Benz GLE (GLE 500 4MATIC)                                                                                                 | 91000.00    | 
+| Electric Motor                                                                                                                     | 87589.00    | 
+| Mercedes-Benz S-Class (S 500)                                                                                                      | 85000.00    |   
+> According to the above results, the product that contributes the most to carbon emissions is the Wind Turbine G128 5 Megawatts, at roughly 3718044.00.
 
 #### 2. What are the industry groups of these products?
 <pre>SELECT 
@@ -233,6 +226,9 @@ GROUP BY year;</pre>
 | 2016 | 6891.52  | 
 | 2017 | 4050.85  |   
 
+![image](https://github.com/user-attachments/assets/d4f3bdae-1ae9-48ca-816c-1867ce276ee6)
+
+
 #### 7. Which industry groups has demonstrated the most notable decrease in carbon footprints (PCFs) over time?  
 <pre>SELECT
   i.industry_group AS 'Industry Group',
@@ -261,7 +257,10 @@ ORDER BY i.industry_group, p.year DESC;</pre>
 | Materials                                        | 2017 | 213137.00  | 
 | Materials                                        | 2016 | 88267.00   | 
 | Materials                                        | 2014 | 75678.00   | 
-| Materials                                        | 2013 | 200513.00  | 
+| Materials                                        | 2013 | 200513.00  |  
+
+![image](https://github.com/user-attachments/assets/78dbcb74-bf91-4d1c-a075-337f40618067)
+
 
 
 
