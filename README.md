@@ -39,10 +39,10 @@ LIMIT 5;</pre>
 | 4  | "Mining - Iron, Aluminum, Other Metals"                                | 
 | 5  | "Pharmaceuticals, Biotechnology & Life Sciences"                       |   
 
-<pre>SELECT COUNT(DISTINCT id) FROM industry_groups;</pre>  
-| COUNT(DISTINCT id) | 
-| -----------------: | 
-| 30                 | 
+<pre>SELECT COUNT(DISTINCT id) AS 'Num of industry groups' FROM industry_groups;</pre>  
+| Num of industry groups | 
+| ---------------------: | 
+| 30                     | 
 > There are 30 industry groups.
 
 #### 3. Table 'companies'  
@@ -78,7 +78,7 @@ LIMIT 5;
 | 4  | Canada       | 
 | 5  | Chile        |   
 
-<pre>SELECT COUNT(DISTINCT id) AS 'Num of countries' FROM countries;;</pre>  
+<pre>SELECT COUNT(DISTINCT id) AS 'Num of countries' FROM countries;</pre>  
 
 | Num of countries | 
 | ---------------: | 
